@@ -15,8 +15,7 @@ html {
 }
 
 body {
-    width: 350px;
-    height: 300px;
+    width: 250px;
 }
 
 .app {
@@ -29,27 +28,15 @@ body {
     padding: 20px;
 }
 
-.title {
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 10px;
+.maxbid-label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 8px;
 }
 
-.subtitle {
-    font-size: 12px;
-}
-
-code {
-    font-size: 12px;
-    font-family: inherit;
-    background-color: rgba(254, 237, 185, .3);
-    padding: 2px 4px;
-    border-radius: 2px;
-}
-
-.counter-label {
-    font-size: 12px;
-    margin-bottom: 5px;
+.maxbid-input {
+    width: 80px;
+    text-align: center;
 }
 
 .counter {
@@ -82,11 +69,4 @@ code {
 
 .button:hover {
     transform: scale(1.1);
-}
-
-.divider {
-    margin: 30px auto 25px;
-    width: 50px;
-    border: .5px dashed #000;
-    opacity: .1;
 }

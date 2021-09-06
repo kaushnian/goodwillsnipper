@@ -7,17 +7,17 @@
 </head>
 <body>
   <div class="app">
-    <p class="counter-label">Counter</p>
+    <label for="maxbid" class="maxbid-label">Enter max bid $ amount</label>
+    <input type="text" class="maxbid-input" name="maxbid">
+
+    <strong class="maxbid-value"></strong>
+
     <div id="counter" class="counter"></div>
+
     <div class="button-container">
-      <button id="decrementBtn" class="button">-</button>
-      <button id="incrementBtn" class="button">+</button>
+      <button class="start-btn button">-</button>
+      <button class="stop-btn button">+</button>
     </div>
-
-    <hr class="divider" />
-
-    <p class="title">Chrome Extension is Ready!</p>
-    <p class="subtitle">Start by updating <code>popup.html</code></p>
   </div>
 
   <script src="popup.js"></script>
