@@ -1,10 +1,8 @@
-'use strict';
+import SizePlugin from 'size-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
+import MiniCssExtractPlugin, { loader as _loader } from 'mini-css-extract-plugin';
 
-const SizePlugin = require('size-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-
-const PATHS = require('./paths');
+import PATHS from './paths';
 
 // To re-use webpack configuration across templates,
 // CLI maintains a common webpack configuration file - `webpack.common.js`.
@@ -28,7 +26,7 @@ const common = {
       // Help webpack in understanding CSS files imported in .js files
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+        use: [_loader, 'css-loader'],
       },
       // Check for images imported in .js files and
       {
@@ -64,4 +62,4 @@ const common = {
   ],
 };
 
-module.exports = common;
+export default common;

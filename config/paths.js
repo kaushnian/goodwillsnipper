@@ -1,10 +1,8 @@
-'use strict';
-
-const path = require('path');
+import { resolve } from 'path';
 
 const PATHS = {
-  src: path.resolve(__dirname, '../src'),
-  build: path.resolve(__dirname, '../build'),
+  src: resolve(__dirname, '../src'),
+  build: resolve(__dirname, '../build'),
 };
 
-module.exports = PATHS;
+export default PATHS;

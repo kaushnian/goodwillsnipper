@@ -1,12 +1,13 @@
 {
   "name": "goodwill_sniper",
   "version": "0.1.0",
-  "description": "My Chrome Extension",
+  "description": "Goodwill sniper",
   "private": true,
   "scripts": {
     "watch": "webpack --mode=development --watch --config config/webpack.config.js",
     "build": "webpack --mode=production --config config/webpack.config.js"
   },
+  "type": "module",
   "devDependencies": {
     "copy-webpack-plugin": "^6.4.1",
     "css-loader": "^4.3.0",
