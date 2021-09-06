@@ -1,5 +1,5 @@
 // With background scripts you can communicate with popup
-// and contentScript files.
+// and content files.
 // For more information on background script,
 // See https://developer.chrome.com/extensions/background_pages
 

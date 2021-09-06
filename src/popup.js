@@ -70,7 +70,7 @@ function updateMaxbid({ type }) {
             },
           },
           (response) => {
-            console.log('Current count value passed to contentScript file');
+            console.log('Current count value passed to content file');
           }
         );
       });

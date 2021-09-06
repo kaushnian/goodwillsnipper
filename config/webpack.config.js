@@ -9,7 +9,7 @@ import PATHS from './paths.js';
 const config = merge(common, {
   entry: {
     popup: PATHS.src + '/popup.js',
-    contentScript: PATHS.src + '/content.js',
+    content: PATHS.src + '/content.js',
     background: PATHS.src + '/background.js',
   },
 });
