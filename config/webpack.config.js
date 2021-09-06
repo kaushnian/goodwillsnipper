@@ -1,14 +1,16 @@
+'use strict';
+
 import { merge } from 'webpack-merge';
 
 import common from './webpack.common.js';
-import { src } from './paths';
+import PATHS from './paths.js';
 
 // Merge webpack configuration files
 const config = merge(common, {
   entry: {
-    popup: src + '/popup.js',
-    contentScript: src + '/content.js',
-    background: src + '/background.js',
+    popup: PATHS.src + '/popup.js',
+    contentScript: PATHS.src + '/content.js',
+    background: PATHS.src + '/background.js',
   },
 });
 
