@@ -30,12 +30,10 @@ chrome.runtime.sendMessage(
 
 // Listen for message
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.type === 'COUNT') {
-    console.log(`Current count is ${request.payload.count}`);
+  if (request.type === 'START') {
+    console.log(`Maxbid is ${request.maxbid}`);
   }
 
-  // Send an empty response
-  // See https://github.com/mozilla/webextension-polyfill/issues/130#issuecomment-531531890
-  sendResponse({});
+  sendResponse({ message: 'Maxbid received' });
   return true;
 });

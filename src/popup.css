@@ -29,23 +29,16 @@ body {
 }
 
 .maxbid-label {
-    font-size: 14px;
-    font-weight: bold;
-    margin-bottom: 8px;
+    font-size: 18px;
+    margin-bottom: 16px;
 }
 
 .maxbid-input {
-    width: 80px;
+    width: 160px;
     text-align: center;
-}
-
-.counter {
-    font-size: 36px;
-    font-weight: 700;
-}
-
-.button-container {
-    margin-top: 15px;
+    font-size: 24px;
+    margin-bottom: 16px;
+    padding: 4px 0;
 }
 
 .button {
@@ -63,10 +56,15 @@ body {
     user-select: none;
 }
 
-.button:focus {
-    outline: none;
+.button-start {
+    background: lightgreen;
 }
 
-.button:hover {
-    transform: scale(1.1);
+.button-stop {
+    background: lightsalmon;
+}
+
+.maxbid-input:focus,
+.button:focus {
+    outline-color: lightskyblue;
 }
