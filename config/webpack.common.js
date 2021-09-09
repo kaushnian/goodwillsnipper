@@ -50,13 +50,16 @@ const common = {
           from: '**/*',
           context: 'public',
         },
-      ]
+      ],
     }),
     // Extract CSS into separate files
     new MiniCssExtractPlugin({
       filename: '[name].css',
     }),
   ],
+  experiments: {
+    topLevelAwait: true,
+  },
 };
 
 export default common;

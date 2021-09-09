@@ -1,19 +1,17 @@
-// With background scripts you can communicate with popup
-// and content files.
-// For more information on background script,
-// See https://developer.chrome.com/extensions/background_pages
-
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.type === 'GREETINGS') {
-    const message = `Hi ${
-      sender.tab ? 'Con' : 'Pop'
-    }, my name is Bac. I am from Background.`;
+  if (request.type === 'GET_MAXBID') {
+    const tabId = sender.tab.id.toString();
 
-    // Log message coming from the `request` parameter
-    console.log(request.payload.message);
-    // Send a response message
-    sendResponse({
-      message,
+    console.log('Bac tabId', tabId);
+
+    chrome.storage.sync.get([tabId], (tabData) => {
+      const maxbid = tabData[tabId];
+
+      console.log('Bac maxbid from storage', maxbid);
+      if (maxbid) {
+        sendResponse({ maxbid });
+      }
     });
   }
+  return true;
 });
