@@ -6,10 +6,16 @@ export function getEl(selector) {
 
 export function getProductData(text) {
   const lis = [...document.querySelectorAll('.product-data li')];
-
   const li = lis.find((el) => el.innerText.includes(text));
-
+  if (!li) {
+    console.error(`ERROR: Product data "${text}" not found`);
+    return 'Auction Ended';
+  }
   return li.innerText.replace(text, '');
+}
+
+export function isAuctionActive() {
+  return getProductData('Ends In:').trim() !== 'Auction Ended';
 }
 
 export function getIncrementAmount() {
