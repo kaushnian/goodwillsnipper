@@ -33,7 +33,6 @@ async function initPopup() {
   getEl('.button-stop').addEventListener('click', async () => {
     chrome.storage.sync.remove(tabKey);
     maxbidInput.value = '';
-    messageToContent({ type: 'STOP' }, currentTab.id);
   });
 
   getEl('.button-clear').addEventListener('click', async () => {
@@ -44,10 +43,6 @@ async function initPopup() {
   getEl('.button-reload').addEventListener('click', async () => {
     chrome.runtime.reload();
   });
-}
-
-function messageToContent(message, tabId) {
-  chrome.tabs.sendMessage(tabId, message, (response) => {});
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
