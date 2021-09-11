@@ -21,8 +21,21 @@ async function initPopup() {
   chrome.storage.sync.get([tabKey], (tabData) => {
     if (tabData && tabData[tabKey]) {
       maxbidInput.value = tabData[tabKey].maxbid;
-      startButton.setAttribute('disabled', '');
-      maxbidInput.setAttribute('disabled', '');
+      hide(startButton);
+      disable(maxbidInput);
+      show(stopButton);
+    }
+  });
+
+  maxbidInput.addEventListener('keyup', (event) => {
+    if (maxbidInput.value) {
+      enable(startButton);
+    } else {
+      disable(startButton);
+    }
+    if (event.keyCode === 13) {
+      startButton.click();
+      stopButton.focus();
     }
   });
 
@@ -34,24 +47,27 @@ async function initPopup() {
         url,
       },
     });
-    startButton.setAttribute('disabled', '');
-    maxbidInput.setAttribute('disabled', '');
+    hide(startButton);
+    disable(maxbidInput);
+    show(stopButton);
     chrome.tabs.reload(tabId);
   });
 
   stopButton.addEventListener('click', async () => {
     chrome.storage.sync.remove(tabKey);
     maxbidInput.value = '';
-    startButton.removeAttribute('disabled');
-    maxbidInput.removeAttribute('disabled');
+    show(startButton);
+    hide(stopButton);
+    enable(maxbidInput);
+    maxbidInput.focus();
     chrome.tabs.reload(tabId);
   });
 
   clearButton.addEventListener('click', async () => {
     chrome.storage.sync.clear();
     maxbidInput.value = '';
-    startButton.removeAttribute('disabled');
-    maxbidInput.removeAttribute('disabled');
+    show(startButton);
+    enable(maxbidInput);
   });
 
   reloadButton.addEventListener('click', async () => {
@@ -62,3 +78,19 @@ async function initPopup() {
 document.addEventListener('DOMContentLoaded', async () => {
   initPopup();
 });
+
+function hide(element) {
+  element.classList.add('hidden');
+}
+
+function show(element) {
+  element.classList.remove('hidden');
+}
+
+function disable(element) {
+  element.setAttribute('disabled', '');
+}
+
+function enable(element) {
+  element.removeAttribute('disabled');
+}

@@ -9,9 +9,9 @@ chrome.runtime.sendMessage({ type: 'GET_PARAMS' }, (response) => {
 
   document.body.style.background = 'lightpink';
 
-  //Make a bid!
+  //TODO Make a bid!
   if (response.makeBid) {
-    debugger;
+    chrome.runtime.sendMessage({ type: 'REMOVE_ITEM' });
   }
 
   // START Timer

@@ -14,6 +14,10 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       const newParams = { ...params, makeBid: true };
       chrome.storage.sync.set({ [tabKey]: newParams });
     }
+
+    if (request.type === 'REMOVE_ITEM') {
+      chrome.storage.sync.remove(tabKey);
+    }
   });
 
   return true;

@@ -24,6 +24,8 @@ body {
     width: 250px;
 }
 
+.hidden { display: none !important; }
+
 .app {
     height: 100%;
     display: flex;
@@ -85,7 +87,7 @@ body {
 }
 
 .maxbid-input[disabled] {
-    border: none;
+    border-color: transparent;
     background: none;
     color: limegreen;
 }
