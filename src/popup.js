@@ -3,6 +3,10 @@ import { getEl } from './utils/helpers.js';
 
 async function initPopup() {
   const maxbidInput = getEl('.maxbid-input');
+  const startButton = getEl('.button-start');
+  const stopButton = getEl('.button-stop');
+  const clearButton = getEl('.button-clear');
+  const reloadButton = getEl('.button-reload');
 
   const [currentTab] = await chrome.tabs.query({
     active: true,
@@ -13,13 +17,16 @@ async function initPopup() {
   const tabId = currentTab.id;
   const tabKey = `${url}-${tabId}`;
 
+  // Set initial state from storage.
   chrome.storage.sync.get([tabKey], (tabData) => {
     if (tabData && tabData[tabKey]) {
       maxbidInput.value = tabData[tabKey].maxbid;
+      startButton.setAttribute('disabled', '');
+      maxbidInput.setAttribute('disabled', '');
     }
   });
 
-  getEl('.button-start').addEventListener('click', async () => {
+  startButton.addEventListener('click', async () => {
     chrome.storage.sync.set({
       [tabKey]: {
         maxbid: maxbidInput.value,
@@ -27,20 +34,27 @@ async function initPopup() {
         url,
       },
     });
+    startButton.setAttribute('disabled', '');
+    maxbidInput.setAttribute('disabled', '');
     chrome.tabs.reload(tabId);
   });
 
-  getEl('.button-stop').addEventListener('click', async () => {
+  stopButton.addEventListener('click', async () => {
     chrome.storage.sync.remove(tabKey);
     maxbidInput.value = '';
+    startButton.removeAttribute('disabled');
+    maxbidInput.removeAttribute('disabled');
+    chrome.tabs.reload(tabId);
   });
 
-  getEl('.button-clear').addEventListener('click', async () => {
+  clearButton.addEventListener('click', async () => {
     chrome.storage.sync.clear();
     maxbidInput.value = '';
+    startButton.removeAttribute('disabled');
+    maxbidInput.removeAttribute('disabled');
   });
 
-  getEl('.button-reload').addEventListener('click', async () => {
+  reloadButton.addEventListener('click', async () => {
     chrome.runtime.reload();
   });
 }

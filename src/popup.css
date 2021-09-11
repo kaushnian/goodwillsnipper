@@ -6,12 +6,18 @@
     padding: 0;
     box-sizing: border-box;
 }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+a:hover { text-decoration: none; }
 /* normalize css ends here */
 
 
 html {
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif;
-    color: #222;
+    color: #555;
 }
 
 body {
@@ -29,16 +35,17 @@ body {
 }
 
 .maxbid-label {
-    font-size: 18px;
+    font-size: 20px;
     margin-bottom: 16px;
 }
 
 .maxbid-input {
-    width: 160px;
+    width: 100px;
     text-align: center;
-    font-size: 24px;
-    margin-bottom: 32px;
-    padding: 4px 0;
+    font-size: 26px;
+    margin-bottom: 16px;
+    padding: 8px 0;
+    color: #555;
 }
 
 .button {
@@ -60,6 +67,10 @@ body {
     margin-bottom: 16px;
 }
 
+.link-button{
+    margin-bottom: 4px;
+}
+
 .button-start {
     background: lightgreen;
 }
@@ -71,4 +82,14 @@ body {
 .maxbid-input:focus,
 .button:focus {
     outline-color: lightskyblue;
+}
+
+.maxbid-input[disabled] {
+    border: none;
+    background: none;
+    color: limegreen;
+}
+
+.button[disabled] {
+    cursor: auto;
 }

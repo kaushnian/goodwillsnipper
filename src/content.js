@@ -7,6 +7,8 @@ chrome.runtime.sendMessage({ type: 'GET_PARAMS' }, (response) => {
 
   if (!response) return;
 
+  document.body.style.background = 'lightpink';
+
   //Make a bid!
   if (response.makeBid) {
     debugger;
@@ -14,7 +16,6 @@ chrome.runtime.sendMessage({ type: 'GET_PARAMS' }, (response) => {
 
   // START Timer
   if (response.maxbid) {
-    document.body.style.background = 'lightpink';
     const endingDate = getEndingDate().valueOf();
     const currentDate = moment().valueOf();
 
