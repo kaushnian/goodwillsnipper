@@ -1,15 +1,13 @@
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.type === 'GET_MAXBID') {
-    const tabId = sender.tab.id.toString();
+  if (request.type === 'GET_PARAMS') {
+    console.log(request);
+    const tabKey = `${request.url}-${sender.tab.id}`;
 
-    console.log('Bac tabId', tabId);
+    chrome.storage.sync.get([tabKey], (tabData) => {
+      const params = tabData[tabKey];
 
-    chrome.storage.sync.get([tabId], (tabData) => {
-      const maxbid = tabData[tabId];
-
-      console.log('Bac maxbid from storage', maxbid);
-      if (maxbid) {
-        sendResponse({ maxbid });
+      if (params) {
+        sendResponse(params);
       }
     });
   }

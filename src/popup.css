@@ -25,7 +25,7 @@ body {
     justify-content: center;
     flex-direction: column;
     text-align: center;
-    padding: 20px;
+    padding: 16px;
 }
 
 .maxbid-label {
@@ -37,7 +37,7 @@ body {
     width: 160px;
     text-align: center;
     font-size: 24px;
-    margin-bottom: 16px;
+    margin-bottom: 32px;
     padding: 4px 0;
 }
 
@@ -54,6 +54,10 @@ body {
     text-decoration: none;
     transition: transform .2s ease;
     user-select: none;
+}
+
+.button-container {
+    margin-bottom: 16px;
 }
 
 .button-start {

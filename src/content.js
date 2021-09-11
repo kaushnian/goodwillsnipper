@@ -1,12 +1,19 @@
-// Communicate with background file by sending a message
-chrome.runtime.sendMessage({ type: 'GET_MAXBID' }, (response) => {
-  console.log('Background response', response);
+import moment from 'moment';
+import { getEndingDate, getProductData } from './utils/helpers.js';
 
-  if (response?.maxbid) {
-    document.body.style.background = 'lightpink';
-    // START Timer
+// Communicate with background file by sending a message
+chrome.runtime.sendMessage(
+  { type: 'GET_PARAMS', url: location.href },
+  (response) => {
+    console.log('Background response', response);
+
+    if (response?.maxbid) {
+      document.body.style.background = 'lightpink';
+      // START Timer
+      getEndingDate();
+    }
   }
-});
+);
 
 // Listen for messages
 chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {

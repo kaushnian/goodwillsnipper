@@ -19,6 +19,6 @@
     "webpack-merge": "^5.8.0"
   },
   "dependencies": {
-    "momentjs": "^2.0.0"
+    "moment": "^2.29.1"
   }
 }

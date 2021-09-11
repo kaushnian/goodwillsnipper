@@ -9,33 +9,45 @@ async function initPopup() {
     currentWindow: true,
   });
 
-  const tabId = currentTab.id.toString();
+  const url = currentTab.url;
+  const tabId = currentTab.id;
+  const tabKey = `${url}-${tabId}`;
 
-  chrome.storage.sync.get([tabId], (tabData) => {
-    if (tabData && tabData[tabId]) {
-      maxbidInput.value = tabData[tabId];
+  chrome.storage.sync.get([tabKey], (tabData) => {
+    if (tabData && tabData[tabKey]) {
+      maxbidInput.value = tabData[tabKey].maxbid;
     }
   });
 
   getEl('.button-start').addEventListener('click', async () => {
-    chrome.storage.sync.set({ [tabId]: maxbidInput.value });
-    /* messageToContent(
-      { type: 'START', maxbid: maxbidInput.value },
-      currentTab.id
-    ); */
+    chrome.storage.sync.set({
+      [tabKey]: {
+        maxbid: maxbidInput.value,
+        tabId,
+        url,
+      },
+    });
+    chrome.tabs.reload(tabId);
   });
 
   getEl('.button-stop').addEventListener('click', async () => {
-    chrome.storage.sync.remove(tabId);
+    chrome.storage.sync.remove(tabKey);
     maxbidInput.value = '';
     messageToContent({ type: 'STOP' }, currentTab.id);
+  });
+
+  getEl('.button-clear').addEventListener('click', async () => {
+    chrome.storage.sync.clear();
+    maxbidInput.value = '';
+  });
+
+  getEl('.button-reload').addEventListener('click', async () => {
+    chrome.runtime.reload();
   });
 }
 
 function messageToContent(message, tabId) {
-  chrome.tabs.sendMessage(tabId, message, (response) => {
-    //console.log('Popup: Response from content', response.message);
-  });
+  chrome.tabs.sendMessage(tabId, message, (response) => {});
 }
 
 document.addEventListener('DOMContentLoaded', async () => {

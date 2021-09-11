@@ -25,7 +25,7 @@
       "description": "Opens popup.html"
     }
   },
-  "permissions": ["storage", "activeTab", "scripting"],
+  "permissions": ["storage", "activeTab", "scripting", "management"],
   "content_scripts": [
     {
       "matches": ["https://www.shopgoodwill.com/Item/*"],
