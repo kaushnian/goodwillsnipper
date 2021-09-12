@@ -1,43 +1,51 @@
-class ClassWatcher {
+export class ClassWatcher {
+  constructor(
+    targetNode,
+    classToWatch,
+    classAddedCallback,
+    classRemovedCallback
+  ) {
+    this.targetNode = targetNode;
+    this.classToWatch = classToWatch;
+    this.classAddedCallback = classAddedCallback;
+    this.classRemovedCallback = classRemovedCallback;
+    this.observer = null;
+    this.lastClassState = targetNode.classList.contains(this.classToWatch);
 
-  constructor(targetNode, classToWatch, classAddedCallback, classRemovedCallback) {
-      this.targetNode = targetNode
-      this.classToWatch = classToWatch
-      this.classAddedCallback = classAddedCallback
-      this.classRemovedCallback = classRemovedCallback
-      this.observer = null
-      this.lastClassState = targetNode.classList.contains(this.classToWatch)
-
-      this.init()
+    this.init();
   }
 
   init() {
-      this.observer = new MutationObserver(this.mutationCallback)
-      this.observe()
+    this.observer = new MutationObserver(this.mutationCallback);
+    this.observe();
   }
 
   observe() {
-      this.observer.observe(this.targetNode, { attributes: true })
+    this.observer.observe(this.targetNode, { attributes: true });
   }
 
   disconnect() {
-      this.observer.disconnect()
+    this.observer.disconnect();
   }
 
-  mutationCallback = mutationsList => {
-      for(let mutation of mutationsList) {
-          if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-              let currentClassState = mutation.target.classList.contains(this.classToWatch)
-              if(this.lastClassState !== currentClassState) {
-                  this.lastClassState = currentClassState
-                  if(currentClassState) {
-                      this.classAddedCallback()
-                  }
-                  else {
-                      this.classRemovedCallback()
-                  }
-              }
+  mutationCallback = (mutationsList) => {
+    for (let mutation of mutationsList) {
+      if (
+        mutation.type === 'attributes' &&
+        mutation.attributeName === 'class'
+      ) {
+        let currentClassState = mutation.target.classList.contains(
+          this.classToWatch
+        );
+        if (this.lastClassState !== currentClassState) {
+          this.lastClassState = currentClassState;
+          if (currentClassState) {
+            this.classAddedCallback();
+          } else if (this.classRemovedCallback) {
+            this.classRemovedCallback();
           }
+        }
       }
-  }
+    }
+  };
 }

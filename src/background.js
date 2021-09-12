@@ -1,8 +1,9 @@
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   const tabKey = `${sender.tab.url}-${sender.tab.id}`;
 
-  chrome.storage.sync.get([tabKey], (tabData) => {
-    const params = tabData[tabKey];
+  chrome.storage.sync.get([tabKey, 'isDevmode'], (state) => {
+    debugger;
+    const params = { ...state[tabKey], isDevmode: state.isDevmode };
 
     if (!params) return;
 

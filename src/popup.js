@@ -6,7 +6,9 @@ async function initPopup() {
   const startButton = getEl('.button-start');
   const stopButton = getEl('.button-stop');
   const clearButton = getEl('.button-clear');
-  const reloadButton = getEl('.button-reload');
+  const devmodeCheckbox = getEl('#devmode-checkbox');
+
+  const app = getEl('.app');
 
   const [currentTab] = await chrome.tabs.query({
     active: true,
@@ -27,6 +29,13 @@ async function initPopup() {
     }
   });
 
+  chrome.storage.sync.get(['isDevmode'], ({ isDevmode }) => {
+    if (isDevmode) {
+      devmodeCheckbox.checked = isDevmode;
+      app.classList.add('app-devmode');
+    }
+  });
+
   maxbidInput.addEventListener('keyup', (event) => {
     if (maxbidInput.value) {
       enable(startButton);
@@ -39,7 +48,7 @@ async function initPopup() {
     }
   });
 
-  startButton.addEventListener('click', async () => {
+  startButton.addEventListener('click', () => {
     chrome.storage.sync.set({
       [tabKey]: {
         maxbid: maxbidInput.value,
@@ -53,7 +62,7 @@ async function initPopup() {
     chrome.tabs.reload(tabId);
   });
 
-  stopButton.addEventListener('click', async () => {
+  stopButton.addEventListener('click', () => {
     chrome.storage.sync.remove(tabKey);
     maxbidInput.value = '';
     show(startButton);
@@ -63,15 +72,20 @@ async function initPopup() {
     chrome.tabs.reload(tabId);
   });
 
-  clearButton.addEventListener('click', async () => {
+  clearButton.addEventListener('click', () => {
     chrome.storage.sync.clear();
     maxbidInput.value = '';
     show(startButton);
     enable(maxbidInput);
   });
 
-  reloadButton.addEventListener('click', async () => {
-    chrome.runtime.reload();
+  devmodeCheckbox.addEventListener('change', () => {
+    chrome.storage.sync.set({ ['isDevmode']: devmodeCheckbox.checked });
+    if (devmodeCheckbox.checked) {
+      app.classList.add('app-devmode');
+    } else {
+      app.classList.remove('app-devmode');
+    }
   });
 }
 

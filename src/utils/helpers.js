@@ -1,10 +1,11 @@
 import moment from 'moment-timezone';
+import { ClassWatcher } from './class_watcher.js';
 
 export function getEl(selector) {
   return document.querySelector(selector);
 }
 
-export function getProductData(text) {
+function getProductData(text) {
   const lis = [...document.querySelectorAll('.product-data li')];
   const li = lis.find((el) => el.innerText.includes(text));
   if (!li) {
@@ -16,10 +17,6 @@ export function getProductData(text) {
 
 export function isAuctionActive() {
   return getProductData('Ends In:').trim() !== 'Auction Ended';
-}
-
-export function getIncrementAmount() {
-  return Number(getProductData('Bid Increment:$'));
 }
 
 // Converts PST to users timezone
@@ -38,6 +35,26 @@ export function getEndingDate() {
   return moment.tz(formattedDate, 'America/Los_Angeles').tz(userTimezone);
 }
 
-export function getCurrentPrice(selector) {
-  return Number(getEl(selector).innerText.replace('$', ''));
+export function placeBid(maxbid, isDevmode) {
+  const currentPrice = Number(getProductData('Current Price:$'));
+  const incrementAmount = Number(getProductData('Bid Increment:$'));
+
+  if (currentPrice > maxbid) {
+    alert(`Current price ${currentPrice} is more than max bid ${maxbid}`);
+    return;
+  }
+
+  // Set bid amount
+  getEl('#bidAmount').value = currentPrice + incrementAmount;
+
+  // FINAL ACTION. Place bid in the opened popup
+  new ClassWatcher(getEl('#modal-bid'), 'in', () => {
+    debugger;
+    if (!isDevmode) {
+      getEl('.btn-default').click();
+    }
+  });
+
+  // Click the place bid button
+  getEl('#placeBid').click();
 }
