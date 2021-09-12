@@ -20,18 +20,19 @@ async function initPopup() {
   const tabKey = `${url}-${tabId}`;
 
   // Set initial state from storage.
-  chrome.storage.sync.get([tabKey], (tabData) => {
-    if (tabData && tabData[tabKey]) {
-      maxbidInput.value = tabData[tabKey].maxbid;
+  chrome.storage.sync.get([tabKey, 'isDevmode'], (state) => {
+    console.log(state);
+    if (!state) return;
+
+    if (state[tabKey]) {
+      maxbidInput.value = state[tabKey].maxbid;
       hide(startButton);
       disable(maxbidInput);
       show(stopButton);
     }
-  });
 
-  chrome.storage.sync.get(['isDevmode'], ({ isDevmode }) => {
-    if (isDevmode) {
-      devmodeCheckbox.checked = isDevmode;
+    if (state.isDevmode) {
+      devmodeCheckbox.checked = state.isDevmode;
       app.classList.add('app-devmode');
     }
   });
