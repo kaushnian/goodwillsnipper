@@ -47,15 +47,20 @@ export function placeBid(maxbid, isDevmode) {
   // Set bid amount
   getEl('#bidAmount').value = currentPrice + incrementAmount;
 
-  // FINAL ACTION. Place bid in the opened popup
-  new ClassWatcher(getEl('#modal-bid'), 'in', () => {
-    console.log('Place bid! Click the popup confirmation button');
-    if (!isDevmode) {
-      getEl('.btn-default').click();
-    }
-  });
-
   // Click the place bid button
   console.log('Click the Place bid button');
   getEl('#placeBid').click();
+
+  // FINAL ACTION. Place bid in the opened popup
+
+  const interval = setInterval(() => {
+    const confirmButton = getEl('#place-bid-modal');
+    if (confirmButton) {
+      if (!isDevmode) {
+        console.log('Place bid! Click the popup confirmation button');
+        confirmButton.click();
+      }
+      clearInterval(interval);
+    }
+  }, 100); // check every 100ms
 }

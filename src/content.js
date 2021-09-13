@@ -28,7 +28,7 @@ if (isAuctionActive()) {
       // The site shows Ends in time 2 secons more.
       const timeSyncDelay = 2000;
       // Secons to make bid before ending.
-      const triggerTime = 5000;
+      const triggerTime = 4000;
       const bidTimeMs = endingDate - currentDate - timeSyncDelay - triggerTime;
 
       console.log('RELOAD IN', bidTimeMs / 1000, ' s');
