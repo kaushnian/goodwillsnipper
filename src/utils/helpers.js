@@ -49,12 +49,13 @@ export function placeBid(maxbid, isDevmode) {
 
   // FINAL ACTION. Place bid in the opened popup
   new ClassWatcher(getEl('#modal-bid'), 'in', () => {
-    debugger;
+    console.log('Place bid! Click the popup confirmation button');
     if (!isDevmode) {
       getEl('.btn-default').click();
     }
   });
 
   // Click the place bid button
+  console.log('Click the Place bid button');
   getEl('#placeBid').click();
 }
